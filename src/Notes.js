@@ -1,8 +1,8 @@
 import React from 'react';
 import Form from './components/Form';
-import ViewNotes from './ViewNotes';
+import ViewNotes from './components/ViewNotes';
 
-class Note extends React.Component {
+class Notes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,4 +30,4 @@ class Note extends React.Component {
   }
 }
 
-export default Note;
+export default Notes;

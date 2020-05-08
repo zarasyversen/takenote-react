@@ -1,7 +1,21 @@
 import React from 'react';
-import Note from './components/Note';
+import Note from './Note';
 
 class ViewNotes extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+       isUpdated: false,
+    };
+    this.notesListUpdated = this.notesListUpdated.bind(this);
+  }
+
+  notesListUpdated() {
+    this.setState({
+       isUpdated: true
+    });
+  }
+
   render() {
     let emptyMessage;
     const NOTES = localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [];
@@ -17,7 +31,7 @@ class ViewNotes extends React.Component {
         {emptyMessage}
         
         {NOTES.map((note, index) => (
-          <Note source={note} key={index} />
+          <Note source={note} key={index} notesListUpdated={this.notesListUpdated}/>
         ))}
       </section>
     );
