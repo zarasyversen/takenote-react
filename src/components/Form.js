@@ -3,7 +3,9 @@ import React from 'react';
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { note: '' };
+    this.state = {
+      note: ''
+    }
   }
 
   saveNote = (event) => {
@@ -15,6 +17,7 @@ class Form extends React.Component {
     this.setState({note: ''});
     localStorage.setItem('notes', JSON.stringify(savedNotes));
     this.emptyForm();
+    this.props.listHasUpdated();
   }
 
   emptyForm() {
