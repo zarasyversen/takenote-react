@@ -9,6 +9,15 @@ export default function ViewNotes() {
     emptyMessage = <p>Nothing saved yet</p>
   }
 
+  function deleteNote(id) {
+    const confirmDeletion = window.confirm("Are you sure you want to delete this?");
+
+    if (confirmDeletion) {
+      NOTES.splice(id, 1);
+      localStorage.setItem('notes', JSON.stringify(NOTES));
+    }
+  }
+
   return (
     <section className="take-note__section js-saved-notes">
         <h3>Your previously saved notes</h3>
@@ -16,7 +25,7 @@ export default function ViewNotes() {
         {emptyMessage}
         
         {NOTES.map((note, index) => (
-          <Note source={note} key={index} />
+          <Note source={note} key={index} onDelete={deleteNote} id={index} />
         ))}
       </section>
   );

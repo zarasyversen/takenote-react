@@ -1,15 +1,11 @@
 import React from "react";
 import {Button} from './Button';
 
-function deleteNote() {
-  console.log('delete me');
+export default function Note (props) {
+  return (
+    <li className="take-note__saved-list-item">  
+      <p>{`${props.source}`}</p>
+      <Button classes="take-note__button" label="Delete" handleClick={() => props.onDelete(props.id)}/>
+    </li>
+  )
 }
-
-const Note = ({ source }) => (
-  <li className="take-note__saved-list-item">  
-    <p>{`${source}`}</p>
-    <Button classes="take-note__button" label="Delete" handleClick={deleteNote}/>
-  </li>
-);
-
-export default Note;
