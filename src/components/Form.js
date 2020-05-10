@@ -1,43 +1,31 @@
 import React from 'react';
 
-class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      note: ''
-    }
-  }
+export default function Form(props) {
 
-  saveNote = (event) => {
+  function saveNote(event) {
     event.preventDefault();
-    const storedNotes = localStorage.getItem("notes"),
+
+    const formValue = event.target[0].value,
+          storedNotes = localStorage.getItem("notes"),
           savedNotes = storedNotes ? JSON.parse(storedNotes) : [];
 
-    savedNotes.push(this.state.note);
-    this.setState({note: ''});
+    savedNotes.push(formValue);
     localStorage.setItem('notes', JSON.stringify(savedNotes));
-    this.emptyForm();
-    this.props.listHasUpdated();
+    emptyForm();
+    props.listHasUpdated();
   }
 
-  emptyForm() {
+  function emptyForm() {
     const note = document.querySelector('.js-note');
     note.value = '';
   }
 
-  updateNoteState = (event) => {
-    this.setState({note: event.target.value});
-  }
+  return (
+    <form className="js-note-form" onSubmit={saveNote}>
+        <label htmlFor="note" className="visually-hidden">Write a note that you want to save</label>
+        <textarea className="take-note__input js-note" id="note" required></textarea>
+        <button type="submit" className="take-note__button take-note__button--save">Save your note</button>
+    </form>
+  );
 
-  render() {
-    return (
-      <form className="js-note-form" onSubmit={this.saveNote}>
-          <label htmlFor="note" className="visually-hidden">Write a note that you want to save</label>
-          <textarea className="take-note__input js-note" id="note" onChange={this.updateNoteState} required></textarea>
-          <button type="submit" className="take-note__button take-note__button--save">Save your note</button>
-      </form>
-    );
-  }
 }
-
-export default Form;

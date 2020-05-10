@@ -1,36 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-class Header extends React.Component {
+export default function Header() {
+  const [status, setStatus] = useState("You are Online 😎");
 
-  constructor(props){
-    super(props);
-    this.state = {
-      status: 'You are Online 😎'
-    };
-  }
-
-  checkOnlineStatus() {
+  useEffect(() => {
     if (!navigator.onLine) {
-      this.setState({
-        status: 'You are Offline 😩'
-      })
-    } 
-  }
+     return setStatus("You are Offline 😩");
+    }
+  }, []);
 
-  componentDidMount() {
-   this.checkOnlineStatus()
-  }
-
-  render() {
-    return (
-      <header className="take-note__header">
-        <div className="take-note__header-wrapper take-note__wrapper">
-          <h1>Take A Note</h1>
-          <h2>{this.state.status}</h2>
-        </div>
-      </header>
-    );
-  }
+  return (
+    <header className="take-note__header">
+      <div className="take-note__header-wrapper take-note__wrapper">
+        <h1>Take A Note</h1>
+        <h2>{status}</h2>
+      </div>
+    </header>
+  );
+  
 }
-
-export default Header;

@@ -1,33 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from './components/Form';
 import ViewNotes from './components/ViewNotes';
 
-class Notes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-       isUpdated: false,
-    };
-    this.listHasUpdated = this.listHasUpdated.bind(this);
+export default function Notes() {
+  const [updated, setIsUpdated] = useState(false);
+
+  function listHasUpdated() {
+    return setIsUpdated(true);
   }
 
-  listHasUpdated() {
-    this.setState({
-       isUpdated: true
-    });
-  }
-
-  render() {
-    return (
-      <main className="take-note__main take-note__wrapper">
-        <section className="take-note__section">
-          <h3>Make a new note</h3>
-          <Form listHasUpdated={this.listHasUpdated} />
-        </section>
-        <ViewNotes />
-      </main>
-    );
-  }
+  return (
+    <main className="take-note__main take-note__wrapper">
+      <section className="take-note__section">
+        <h3>Make a new note</h3>
+        <Form listHasUpdated={listHasUpdated} />
+      </section>
+      <ViewNotes noteUpdate={updated} />
+    </main>
+  );
 }
-
-export default Notes;
