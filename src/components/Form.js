@@ -20,12 +20,28 @@ export default function Form(props) {
     note.value = '';
   }
 
+  let editingNote;
+  if (props.isEditing) {
+    editingNote = props.isEditing;
+  }
+
   return (
-    <form className="js-note-form" onSubmit={saveNote}>
+    <div> 
+      {editingNote
+        ? <form className="js-note-form" onSubmit={saveNote}>
+        <label htmlFor="note" className="visually-hidden">Edit your note</label>
+        <textarea className="take-note__input js-note" id="note" required></textarea>
+        <button type="submit" className="take-note__button">Update</button>
+        <button type="button" className="take-note__button" onClick={props.cancelEditing}>Cancel</button>
+        </form>
+        : <form className="js-note-form" onSubmit={saveNote}>
         <label htmlFor="note" className="visually-hidden">Write a note that you want to save</label>
         <textarea className="take-note__input js-note" id="note" required></textarea>
         <button type="submit" className="take-note__button take-note__button--save">Save your note</button>
-    </form>
+        </form>
+      }
+    </div>
+    
   );
 
 }

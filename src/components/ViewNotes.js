@@ -19,6 +19,10 @@ export default function ViewNotes(props) {
     }
   }
 
+  function editNote(id) {
+    props.isEditing(NOTES[id]);
+  }
+
   return (
     <section className="take-note__section js-saved-notes">
         <h3>Your previously saved notes</h3>
@@ -26,7 +30,7 @@ export default function ViewNotes(props) {
         {emptyMessage}
         
         {NOTES.map((note, index) => (
-          <Note source={note} key={index} onDelete={deleteNote} id={index} />
+          <Note source={note} key={index} onEdit={editNote} onDelete={deleteNote} id={index} />
         ))}
       </section>
   );
