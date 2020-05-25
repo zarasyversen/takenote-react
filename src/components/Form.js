@@ -12,7 +12,7 @@ export default function Form(props) {
     savedNotes.push(formValue);
     localStorage.setItem('notes', JSON.stringify(savedNotes));
     emptyForm();
-    props.listHasUpdated();
+    props.listHasUpdated(savedNotes.length);
   }
 
   function emptyForm() {

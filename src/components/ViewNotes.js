@@ -1,7 +1,7 @@
 import React from 'react';
 import Note from './Note';
 
-export default function ViewNotes() {
+export default function ViewNotes(props) {
   let emptyMessage;
   const NOTES = localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [];
 
@@ -15,6 +15,7 @@ export default function ViewNotes() {
     if (confirmDeletion) {
       NOTES.splice(id, 1);
       localStorage.setItem('notes', JSON.stringify(NOTES));
+      props.listHasUpdated(NOTES.length);
     }
   }
 
