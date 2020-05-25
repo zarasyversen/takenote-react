@@ -15,20 +15,26 @@ export default function ViewNotes(props) {
     if (confirmDeletion) {
       NOTES.splice(id, 1);
       localStorage.setItem('notes', JSON.stringify(NOTES));
-      props.listHasUpdated(NOTES.length);
+      props.listHasUpdated('deleted');
     }
   }
 
+  // Create Array with note data
   function editNote(id) {
-    props.isEditing(NOTES[id]);
+    let note = [];
+    note.push(id, NOTES[id]);
+    props.isEditing(note);
   }
-
   return (
     <section className="take-note__section js-saved-notes">
+
         <h3>Your previously saved notes</h3>
   
         {emptyMessage}
-        
+        {props.updatedMessage &&
+          <p className="note-status">{props.updatedMessage}</p>
+        }
+  
         {NOTES.map((note, index) => (
           <Note source={note} key={index} onEdit={editNote} onDelete={deleteNote} id={index} />
         ))}

@@ -50,11 +50,11 @@ body {
   justify-content: space-between;
 }
 
-
 .take-note__header h1, 
 .take-note__header h2 {
   font-size: var(--font-size__base);
 }
+
 .take-note__section {
   width: 80%;
   margin: var(--spacing-large) auto;
@@ -104,25 +104,9 @@ body {
   outline: var(--focus-outline);
 }
 
-/* Disabled Button */
-.take-note__button[disabled] {
-  background: var(--light-grey);
-  color: var(--grey);
-}
-
-/* Update button hidden by default */
-.take-note__button--update,
-.take-note__button--cancel {
-  display: none;
-}
-
-/* Show Update/Cancel, Hide Save */
-.is-updating .take-note__button--update,
-.is-updating .take-note__button--cancel {
-  display: inline-block;
-}
-.is-updating .take-note__button--save {
-  display: none;
+.note-status {
+  padding: var(--spacing-xsmall);
+  border: 3px dotted #fd8a8b;
 }
 
 .take-note__saved-list {

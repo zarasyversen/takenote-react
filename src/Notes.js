@@ -3,28 +3,36 @@ import Form from './components/Form';
 import ViewNotes from './components/ViewNotes';
 
 export default function Notes() {
-  const [updated, setIsUpdated] = useState(false);
+  const [update, setIsUpdated] = useState(false);
   const [editingNote, setIsEditing] = useState(false);
 
-  function listHasUpdated(noteAmount) {
-    return setIsUpdated('Number of notes: ' + noteAmount);
+  // How can I better do this
+  function listHasUpdated(action) {
+    return setIsUpdated(action);
   }
-
   function editNote(note) {
     return setIsEditing(note);
   }
 
   function cancelEditing() {
+    const note = document.querySelector('.js-note');
+    note.value = '';
     return setIsEditing(false);
+  }
+
+  let updatedNote;
+  if (update === 'deleted') {
+    updatedNote = 'Your note has been deleted.';
+  } else if (update === 'saved') {
+    updatedNote = 'Your note has been saved.';
+  } else if (update === 'edited') {
+    updatedNote = 'Your note has been edited.';
   }
 
   return (
     <main className="take-note__main take-note__wrapper">
-      <section className="take-note__section">
-        <h3>Make a new note</h3>
-        <Form noteUpdate={updated} cancelEditing={cancelEditing} listHasUpdated={listHasUpdated} isEditing={editingNote} />
-      </section>
-      <ViewNotes noteUpdate={updated} listHasUpdated={listHasUpdated} isEditing={editNote} />
+      <Form cancelEditing={cancelEditing} listHasUpdated={listHasUpdated} isEditing={editingNote}/>
+      <ViewNotes listHasUpdated={listHasUpdated} isEditing={editNote} updatedMessage={updatedNote} />
     </main>
   );
 }
